@@ -1,9 +1,10 @@
 import express from 'express'
 import cors from 'cors'
+import 'dotenv/config'
 import { router as catRouter } from './src/router/cat.router.js'
 import { router as clanRouter } from './src/router/clan.router.js'
 
-process.loadEnvFile('.env')
+// process.loadEnvFile('.env') // einfach in ein eigens script?
 
 const PORT = process.env.PORT || 8080
 
