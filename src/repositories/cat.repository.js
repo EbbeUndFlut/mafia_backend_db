@@ -3,7 +3,7 @@ import { pool } from "../util/db.js"
 export async function getAllCats() {
     const conn = await pool.getConnection()
     try {
-        const [rows] = await conn.query('SELECT * FROM cat LIMIT 2')
+        const [rows] = await conn.query('SELECT * FROM cat')
 
         return rows
     } catch (err) {
@@ -11,4 +11,9 @@ export async function getAllCats() {
     } finally {
         conn.release()
     }
+}
+
+export async function insertNewCat(cat) {
+    const [result] = await pool.execute('INSERT INTO cat (cat_name, cat_rank_id, avatar_url) VALUES (:name, :cat_rank_id, :avatar)', cat)
+    return result
 }

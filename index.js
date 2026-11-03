@@ -12,9 +12,9 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use('/api', catRouter)
-app.use('/api', clanRouter)
-app.use('/api', regionRouter)
+app.use('/api/v1', catRouter)
+app.use('/api/v1', clanRouter)
+app.use('/api/v1', regionRouter)
 
 
 
