@@ -1,0 +1,26 @@
+info:
+  name: createNewClanWtransaction
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:6767/api/v1/clan/new
+  body:
+    type: json
+    data: |-
+      [
+        {
+          "name":"Enton"
+        },
+        {
+          "name":"Team Grunt"
+        }
+      ]
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
