@@ -28,3 +28,28 @@ export async function createNewClan(clan, cat) {
         conn.release()
     }
 }
+
+export async function findAll() {
+    try {
+        const [rows] = await pool.execute('SELECT * FROM clan')
+        return rows
+    } catch (error) {
+        throw error
+    }
+}
+
+export async function clanDashboardOverview() {
+    const sql = `
+    SELECT c.id, c.clan_name,c.fische, d.cat_name as donName, d.avatar_url as donAvatar, COUNT(m.id) as mitglieder, COUNT(r.id) as regionen FROM clan c
+    left join cat m on m.clan_id = c.id
+    left join cat d on d.id = c.don_id
+    left join region r on r.clan_id = c.id
+    GROUP BY c.id, c.clan_name, d.cat_name, d.avatar_url
+`
+    try {
+        const [rows] = await pool.execute(sql)
+        return rows
+    } catch (error) {
+        throw error
+    }
+}
