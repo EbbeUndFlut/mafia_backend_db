@@ -19,3 +19,13 @@ export async function getClans(req, res) {
         res.status(500).json(error)
     }
 }
+
+export function setClanCookie(req, res) {
+    const clanId = req.params.id
+    res.cookie("clan", clanId, {
+        // partitioned: true,
+        // secure: true,
+        // sameSite: "none"
+    })
+    res.sendStatus(200)
+}

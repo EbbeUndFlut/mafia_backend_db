@@ -12,3 +12,14 @@ export async function findAll() {
         conn.release()
     }
 }
+
+export async function changeClanId(ids) {
+    try {
+        const sql = 'UPDATE region SET clan_id = ? WHERE id = ?'
+        const [row] = await pool.execute(sql, [ids.clanId, ids.regionId])
+        return row
+    } catch (err) {
+        console.log(err)
+        throw err
+    }
+}

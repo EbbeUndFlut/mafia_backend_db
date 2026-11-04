@@ -39,13 +39,9 @@ export async function findAll() {
 }
 
 export async function clanDashboardOverview() {
+
     const sql = `
-    SELECT c.id, c.clan_name,c.fische, d.cat_name as donName, d.avatar_url as donAvatar, COUNT(m.id) as mitglieder, COUNT(r.id) as regionen FROM clan c
-    left join cat m on m.clan_id = c.id
-    left join cat d on d.id = c.don_id
-    left join region r on r.clan_id = c.id
-    GROUP BY c.id, c.clan_name, d.cat_name, d.avatar_url
-`
+    SELECT c.id, c.clan_name,c.fische,d.cat_name as donName, d.avatar_url as donAvatar, (SELECT COUNT(*) FROM cat m WHERE m.clan_id = c.id)as mitglieder, (SELECT COUNT(*) FROM region r where r.clan_id = c.id )as regionen FROM clan c LEFT JOIN cat d ON d.id = c.don_id GROUP BY c.id, c.clan_name, d.cat_name, d.avatar_url`
     try {
         const [rows] = await pool.execute(sql)
         return rows
