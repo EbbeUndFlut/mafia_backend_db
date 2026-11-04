@@ -17,3 +17,13 @@ export async function insertNewCat(cat) {
     const [result] = await pool.execute('INSERT INTO cat (cat_name, cat_rank_id, avatar_url) VALUES (:name, :cat_rank_id, :avatar)', cat)
     return result
 }
+
+export async function getAllFreeCats() {
+    try {
+        const [rows] = await pool.execute('SELECT * FROM cat WHERE clan_id IS NULL')
+        return rows
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
