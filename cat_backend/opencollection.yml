@@ -2,6 +2,22 @@ opencollection: 1.0.0
 
 info:
   name: cat_backend
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  variables:
+    - name: BASE_URL
+      value: http://127.0.0.1:6767/api/v1
 bundled: false
 extensions:
   bruno:
