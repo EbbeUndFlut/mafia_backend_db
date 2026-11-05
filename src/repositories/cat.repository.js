@@ -56,3 +56,13 @@ export async function catGetsHired(clan, cat) {
         conn.release()
     }
 }
+
+export async function getClanCats(clanId) {
+    try {
+        const [rows] = await pool.execute('SELECT * FROM cat WHERE clan_id = ? ', [clanId])
+        return rows
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}

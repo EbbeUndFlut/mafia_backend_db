@@ -1,4 +1,4 @@
-import { getDashboardClans, newClan } from "../service/clan.service.js";
+import { buildDashboardClanData, getDashboardClans, newClan } from "../service/clan.service.js";
 
 export async function createNewClan(req, res) {
     try {
@@ -28,4 +28,15 @@ export function setClanCookie(req, res) {
         // sameSite: "none"
     })
     res.sendStatus(200)
+}
+
+export async function getDashboardData(req, res) {
+    try {
+        const clanId = req.cookies.clan
+        const dashboardData = await buildDashboardClanData(clanId)
+        res.json(dashboardData)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Fehler" })
+    }
 }
