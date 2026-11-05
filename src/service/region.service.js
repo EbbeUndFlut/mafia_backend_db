@@ -10,6 +10,11 @@ export async function allRegions() {
 }
 
 export async function changeRegionClan(data) {
+    // erst prüfen ob schon ein clan diese region besetzt
+
+    //wenn die region unbesetzt dann einfach nur dem clan zuweisen
     const result = await changeClanId(data)
+
+    //wenn region schon besetzt ist, soll ein region kampf beginnen -> tabellen regionbattle und clan_regionbattle
     return result
 }
