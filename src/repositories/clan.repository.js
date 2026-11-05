@@ -49,3 +49,13 @@ export async function clanDashboardOverview() {
         throw error
     }
 }
+
+export async function findById(id) {
+    try {
+        const [row] = await pool.execute('SELECT * FROM clan WHERE id = ?', [id])
+        return row
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}

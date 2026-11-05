@@ -5,8 +5,16 @@ info:
 
 http:
   method: GET
-  url: http://localhost:6767/api/v1/cat
+  url: "{{BASE_URL}}/cat"
   auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Gibt mir eine 200", ()=>{
+          expect(res.getStatus()).to.equal(200)
+        })
 
 settings:
   encodeUrl: true
