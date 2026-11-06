@@ -59,3 +59,13 @@ export async function findById(id) {
         throw error
     }
 }
+
+export async function updateFische(amount, clanId) {
+    try {
+        const [row] = await pool.execute('UPDATE clan SET fische = fische + ? WHERE id = ?', [amount, clanId])
+        return row
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}

@@ -23,3 +23,23 @@ export async function createNewBattle(clanA, clanB, region) {
         conn.release()
     }
 }
+
+export async function findAllOngoing() {
+    try {
+        const [rows] = await pool.execute('SELECT rb.*, MIN(crb.clan_id) AS clanA_id, MAX(crb.clan_id)AS clanB_id from regionbattle rb JOIN clan_regionbattle crb on crb.regionbattle_id = rb.id WHERE battle_ongoing = true group by rb.id')
+        return rows
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+export async function updateAfterBattle(winnerId, battleId) {
+    try {
+        const [row] = await pool.execute('UPDATE regionbattle set battle_ongoing = false, winner_id=? where id = ? ', [winnerId, battleId])
+        return row
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}

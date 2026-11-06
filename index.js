@@ -5,7 +5,8 @@ import 'dotenv/config'
 import { router as catRouter } from './src/router/cat.router.js'
 import { router as clanRouter } from './src/router/clan.router.js'
 import { router as regionRouter } from './src/router/region.router.js'
-// process.loadEnvFile('.env') // einfach in ein eigens script?
+
+import './src/util/timedJobs.js'
 
 const PORT = process.env.PORT || 8080
 
