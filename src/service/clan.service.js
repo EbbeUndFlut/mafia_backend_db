@@ -1,4 +1,4 @@
-import { clanDashboardOverview, createNewClan, findById } from "../repositories/clan.repository.js"
+import { clanDashboardOverview, createNewClan, findAll, findById, updateFische } from "../repositories/clan.repository.js"
 import { findById as findByCatId, getClanCats } from "../repositories/cat.repository.js"
 import { getClanRegion } from "../repositories/region.repository.js"
 
@@ -27,4 +27,19 @@ export async function buildDashboardClanData(clanId) {
     }
     console.log(data)
     return data
+}
+
+export async function earnFisch() {
+    try {
+        const clans = await findAll()
+        for (const clan of clans) {
+            const regions = await getClanRegion(clan.id)
+            const amount = regions.reduce((fisch, ele) => fisch + ele.fish_rate, 0)
+            await updateFische(amount, clan.id)
+            console.log(`${clan.clan_name} hat jetzt ${amount} Fische dazu bekommen.`)
+        }
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
 }
