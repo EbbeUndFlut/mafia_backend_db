@@ -43,3 +43,12 @@ export async function getClanRegion(clanId) {
         throw error
     }
 }
+export async function getClanRegionPeace(clanId) {
+    try {
+        const [row] = await pool.execute('SELECT * FROM region r  WHERE 1 NOT IN (SELECT rb.battle_ongoing from regionbattle rb WHERE rb.region_id = r.id and battle_ongoing = true) and r.clan_id = ?', [clanId])
+        return row
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}

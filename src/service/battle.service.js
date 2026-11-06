@@ -22,5 +22,5 @@ export async function resolveBattles() {
 
 
 function clanWars(clanA_id, clanB_id) {
-    return Math.random > 0.5 ? clanA_id : clanB_id
+    return Math.random() > 0.5 ? clanA_id : clanB_id
 }
